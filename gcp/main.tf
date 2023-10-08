@@ -1,4 +1,5 @@
 resource "google_compute_instance" "wordpress" {
+    project  = "feisty-proton-401321"
     name = "wordpress_instance"
     machine_type = "e2-micro"
     zone = "us-central1-a"
