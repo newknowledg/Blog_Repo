@@ -1,3 +1,14 @@
+resource "google_compute_network" "wordpress_net" {
+    name = "wordpress-network"
+    auto_create_subnetworks = false
+}
+
+resource "google_compute_subnetwork" "terraform_subnet" {
+    name = "wordpress-subnet"
+    ip_cdr_range = "10.20.0.0/16"
+    region "us-cental1"
+    network = google_comput_networ.wordpress_net.id
+}
 resource "google_compute_instance" "wordpress" {
     project  = "feisty-proton-401321"
     name = "wordpress-instance"
@@ -12,7 +23,8 @@ resource "google_compute_instance" "wordpress" {
     }
 
     network_interface {
-        network = "default"
+        network = google_compute_network.wordpress_net.id
+        subnetwork = google_compute_subnetwork.wordpress_subnet.id
         access_config{
             //necessary even empty
         }
