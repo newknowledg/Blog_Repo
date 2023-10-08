@@ -1,7 +1,18 @@
 name: GCP Workflow
 
 on:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      WORKING_DIRECTORY:
+        description: "working directory"
+    secrets:
+      GCP_EMAIL:
+        required: true
+      GCP_SA_KEY:
+        required: true
+
+env:
+  WORKING_DIRECTORY : ${{ inputs.WORKING_DIRECTORY }}
 
 jobs:
   tf_deployment:

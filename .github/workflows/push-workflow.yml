@@ -1,8 +1,11 @@
 name: Push Workflow
 
 on:
-  - push
+  push:
+    branches:
+    - main
 
 jobs:
   gcp_workflow:
     uses: ./.github/workflows/gcp-workflow.yml
+    secrets: inherit
