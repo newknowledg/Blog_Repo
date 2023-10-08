@@ -30,6 +30,8 @@ jobs:
     - name: Setup Terraform CLI
       uses: hashicorp/setup-terraform@v2.0.2
 
+    - name: List Root Folder
+      run: ls -a
     - name: Terraform init
       working-directory: gcp
       run: |
