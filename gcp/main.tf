@@ -7,7 +7,7 @@ resource "google_compute_network" "wordpress_net" {
 resource "google_compute_subnetwork" "wordpress_subnet" {
     project  = "feisty-proton-401321"
     name = "wordpress-subnet"
-    ip_cdr_range = "10.20.0.0/16"
+    ip_cidr_range = "10.20.0.0/16"
     region = "us-central1"
     network = google_compute_network.wordpress_net.id
 }
