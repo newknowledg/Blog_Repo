@@ -1,10 +1,3 @@
-provider "google" {
-    project = "feisty-proton-401321"
-    credentials = "${file("credentials.json")}"
-    region = "us-central1"
-    zone = "us-central1-c"
-}
-
 resource "google_compute_instane" "wordpress" {
     name = "wordpress_instance"
     machine_type = "e2-micro"
