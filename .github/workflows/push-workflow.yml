@@ -7,7 +7,7 @@ on:
 
 jobs:
   aws_workflow:
-    uses: ./.github/workflows/gcp-workflow.yml
+    uses: ./.github/workflows/aws-workflow.yml
     with:
       WORKING_DIRECTORY: "./aws"
     secrets: inherit

@@ -22,3 +22,25 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Config credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+    - name: Setup Terraform CLI
+      uses: hashicorp/setup-terraform@v2.0.2
+
+    - name: Set DB Creds
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        sed -ie "s/{__USER__}/${{ secrets.DB_USER}/g}" main.tf
+        sed -ie "s/{__PASS__}/${{ secrets.DB_PASS}/g}" main.tf
+    - name: Terraform init
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        terraform init
+        terraform plan
+        terraform apply -auto-approve
+      env:
+        AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
