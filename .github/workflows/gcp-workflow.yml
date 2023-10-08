@@ -20,7 +20,8 @@ jobs:
   tf_deployment:
     runs-on: ubuntu-latest
     steps:
-
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Config credentials
       uses: google-github-actions/setup-gcloud@v0
       with:
