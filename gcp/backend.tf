@@ -1,6 +1,6 @@
 terraform {
  backend "gcs" {
-   bucket  = "none-your-business"
+   bucket  = "none_your_business"
    prefix  = "terraform/state"
  }
 }
