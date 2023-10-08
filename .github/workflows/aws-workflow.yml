@@ -19,7 +19,7 @@ env:
 jobs:
   tf_deployment:
   runs_on: ubuntu-latest
-
+  steps:
   - name: Config credentials
     uses: aws-actions/configure-aws-credentials@v1
     with:
