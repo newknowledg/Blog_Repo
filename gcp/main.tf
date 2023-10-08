@@ -1,6 +1,6 @@
 resource "google_compute_instance" "wordpress" {
     project  = "feisty-proton-401321"
-    name = "wordpress_instance"
+    name = "wordpress-instance"
     machine_type = "e2-micro"
     zone = "us-central1-a"
     allow_stopping_for_update = true
