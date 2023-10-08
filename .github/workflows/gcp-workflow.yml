@@ -5,6 +5,8 @@ on:
     inputs:
       WORKING_DIRECTORY:
         description: "working directory"
+        type: string
+        required: true
     secrets:
       GCP_EMAIL:
         required: true
