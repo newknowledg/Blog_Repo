@@ -36,5 +36,6 @@ jobs:
         terraform init
         terraform plan
         terraform apply -auto-approve
+        terraform destroy -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
