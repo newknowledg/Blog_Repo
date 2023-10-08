@@ -8,9 +8,10 @@ resource "google_compute_subnetwork" "wordpress_subnet" {
     project  = "feisty-proton-401321"
     name = "wordpress-subnet"
     ip_cdr_range = "10.20.0.0/16"
-    region "us-central1"
+    region = "us-central1"
     network = google_compute_network.wordpress_net.id
 }
+
 resource "google_compute_instance" "wordpress" {
     project  = "feisty-proton-401321"
     name = "wordpress-instance"
