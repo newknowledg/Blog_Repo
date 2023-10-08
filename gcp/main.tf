@@ -5,13 +5,13 @@ resource "google_compute_instance" "wordpress" {
     allow_stopping_for_update = true
 
     boot_disk{
-        initialize_params{
+        initialize_params {
             image = "debian-cloud/debian-11"
         }
     }
 
     network_interface {
-        network = default
+        network = "default"
         access_config{
             //necessary even empty
         }
