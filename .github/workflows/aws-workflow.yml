@@ -18,7 +18,7 @@ env:
 
 jobs:
   tf_deployment:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
