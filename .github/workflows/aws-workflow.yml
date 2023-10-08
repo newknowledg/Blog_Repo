@@ -29,9 +29,16 @@ jobs:
     - name: Setup Terraform CLI
       uses: hashicorp/setup-terraform@v2.0.2
 
+    - name: Set DB Creds
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        sed -ie "s/{__USER__}/${{ secrets.DB_USER}/g}" main.tf
+        sed -ie "s/{__PASS__}/${{ secrets.DB_PASS}/g}" main.tf
     - name: Terraform init
-      working-directory: gcp
+      working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         terraform init
         terraform plan
         terraform apply -auto-approve
+      env:
+        AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
