@@ -23,7 +23,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Terraform init
-      working-directory: gcp
+      working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         terraform init
         terraform plan

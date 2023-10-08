@@ -1,6 +1,6 @@
 terraform {
  backend "aws" {
-   bucket  = "none_your_business"
+   bucket  = "none-your-business"
    prefix  = "terraform/state"
  }
 }
