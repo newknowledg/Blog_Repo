@@ -1,4 +1,4 @@
-resource "google_compute_instane" "wordpress" {
+resource "google_compute_instance" "wordpress" {
     name = "wordpress_instance"
     machine_type = "e2-micro"
     zone = "us-central1-a"
