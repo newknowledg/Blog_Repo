@@ -28,7 +28,7 @@ jobs:
         cli_config_credentials_token: ${{ secrets.GCP_SA_KEY }}
 
     - name: Set Credentials
-      run: - cat "${{ secrets.GCP_SA_KEY}}"
+      run: cat "${{ secrets.GCP_SA_KEY}}"
       working-directory: gcp
     - name: Terraform init
       working-directory: gcp
