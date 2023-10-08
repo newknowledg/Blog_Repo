@@ -1,0 +1,8 @@
+name: Push Workflow
+
+on:
+  - push
+
+jobs:
+  gcp_workflow:
+    uses: ./.github/workflows/gcp-workflow.yml

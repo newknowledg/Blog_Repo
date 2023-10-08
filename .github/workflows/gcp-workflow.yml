@@ -1,0 +1,26 @@
+name: GCP Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tf_deployment:
+  runs_on: ubuntu-latest
+
+  - name: Config credentials
+    uses: google-github-actions/setup-gcloud@v0
+    with:
+      aws-access-key-id: ${{ secrets.GCP_EMAIL }}
+      aws-secret-access-key: ${{ secrets.GCP_SA_KEY }}
+      projecct_id: "My First Project"
+  - name: Setup Terraform CLI
+    uses: hashicorp/setup-terraform@v2.0.2
+
+  - name: Terraform init
+    working-directory: gcp
+    run: |
+      terraform init
+      terraform plan
+      terraform apply -auto-approve
+
+
