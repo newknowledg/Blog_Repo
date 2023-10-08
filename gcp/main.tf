@@ -1,8 +1,3 @@
-provider "google" {
-    project  = "feisty-proton-401321"
-    credentials = "${file("credentials.json")}"
-}
-
 resource "google_compute_instane" "wordpress" {
     name = "wordpress_instance"
     machine_type = "e2-micro"
