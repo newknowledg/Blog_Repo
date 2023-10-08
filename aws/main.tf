@@ -4,7 +4,7 @@ resource "aws_db_instance" "wordpress" {
     engine = "postgres"
     engine_version = "15.3"
     instance_class = "db.t3.micro"
-    parameter_group_name = "default.postgresql_15.3"
+    parameter_group_name = "default.postgresql15"
     skip_final_snapshot = true
     username = "{__USER__}"
     password = "{__PASS__}"
