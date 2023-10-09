@@ -43,7 +43,7 @@ jobs:
         terraform plan
         terraform apply -auto-approve
         echo "endpoint is:"
-        echo $(terraform plan | grep endpoint | awk '{print $3}' | tr -d '"')
+        echo $(terraform show -json | grep endpoint | awk '{print $3}' | tr -d '"')
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Terraform vars
@@ -51,6 +51,6 @@ jobs:
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         echo "endpoint is:"
-        echo $(terraform plan | grep endpoint | awk '{print $3}' | tr -d '"')
+        echo $(terraform show -json | grep endpoint | awk '{print $3}' | tr -d '"')
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
