@@ -11,17 +11,11 @@ jobs:
     with:
       WORKING_DIRECTORY: "./aws"
     secrets: inherit
-  verify_var:
+  gcp_workflow:
     needs: aws_workflow
-    runs-on: ubuntu-latest
-    steps:
-    - name: test
-      run: echo ${{ needs.aws_workflow.outputs.endpoint}}
-# gcp_workflow:
-#   needs: aws_workflow
-#   if: (needs.aws_workflow.result == 'success')
-#   uses: ./.github/workflows/gcp-workflow.yml
-#   with:
-#     WORKING_DIRECTORY: "./gcp"
-#     ENDPOINT: "${{ needs.aws_workflow.outputs.endpoint }}"
-#   secrets: inherit
+    if: (needs.aws_workflow.result == 'success')
+    uses: ./.github/workflows/gcp-workflow.yml
+    with:
+      WORKING_DIRECTORY: "./gcp"
+      ENDPOINT: "${{ needs.aws_workflow.outputs.endpoint }}"
+    secrets: inherit
