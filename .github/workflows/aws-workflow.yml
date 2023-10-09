@@ -10,7 +10,7 @@ on:
     outputs:
       endpoint: 
         description: "database endpoint"
-        value: "${{ steps.vars.outputs.endpoint }}"
+        value: "${{ jobs.tf_deployment.steps.vars.outputs.endpoint }}"
     secrets:
       GCP_EMAIL:
         required: true
