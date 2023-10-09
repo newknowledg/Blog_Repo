@@ -6,6 +6,7 @@ resource "aws_db_instance" "wordpress" {
     instance_class = "db.t3.micro"
     parameter_group_name = "default.postgres15"
     skip_final_snapshot = true
+    identifier = "wordpress"
     username = "{__USER__}"
     password = "{__PASS__}"
     }
