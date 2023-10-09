@@ -57,6 +57,6 @@ jobs:
         echo -n "endpoint is: "
         echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]')
         #echo -n "endpoint='test'$(echo $(echo '_merge'))" >> $GITHUB_OUTPUT
-        echo -n "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]'))"
+        echo -n "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]' | sed 's/wordpress//g'))"
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
