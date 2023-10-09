@@ -48,6 +48,7 @@ jobs:
       id: vars
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
+        terraform state pull
         echo "endpoint is:"
         echo $(terraform state pull | grep endpoint | awk '{print $3}' | tr -d '"')
       env:
