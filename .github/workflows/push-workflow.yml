@@ -11,11 +11,14 @@ jobs:
     with:
       WORKING_DIRECTORY: "./aws"
     secrets: inherit
-  gcp_workflow:
+  verify_var:
     needs: aws_workflow
-    if: (needs.aws_workflow.result == 'success')
-    uses: ./.github/workflows/gcp-workflow.yml
-    with:
-      WORKING_DIRECTORY: "./gcp"
-      ENDPOINT: "${{ needs.aws_workflow.outputs.endpoint }}"
-    secrets: inherit
+    run: echo ${{ needs.aws_workflow.outputs.endpoint}}
+# gcp_workflow:
+#   needs: aws_workflow
+#   if: (needs.aws_workflow.result == 'success')
+#   uses: ./.github/workflows/gcp-workflow.yml
+#   with:
+#     WORKING_DIRECTORY: "./gcp"
+#     ENDPOINT: "${{ needs.aws_workflow.outputs.endpoint }}"
+#   secrets: inherit
