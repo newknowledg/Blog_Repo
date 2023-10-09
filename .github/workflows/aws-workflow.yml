@@ -42,16 +42,13 @@ jobs:
         terraform init
         terraform plan
         terraform apply -auto-approve
-        echo "endpoint is:"
-        echo $(terraform show -json | grep endpoint | awk '{print $3}' | tr -d '"')
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Terraform vars
       id: vars
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
-        terraform plan -out=tfplan
         echo "endpoint is:"
-        echo $(terraform show -json tfplan | grep endpoint | awk '{print $3}' | tr -d '"')
+        echo $(terraform state pull | grep endpoint | awk '{print $3}' | tr -d '"')
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
