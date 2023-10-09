@@ -10,7 +10,7 @@ on:
     outputs:
       endpoint: 
         description: "database endpoint"
-        value: "${{ jobs.tf_deployment.steps.vars.outputs.endpoint }}"
+        value: "${{ jobs.tf_deployment.outputs.endpoint }}"
     secrets:
       GCP_EMAIL:
         required: true
@@ -23,6 +23,8 @@ env:
 jobs:
   tf_deployment:
     runs-on: ubuntu-latest
+    outputs:
+      endpoint: ${{ steps.vars.outputs.endpoint }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
