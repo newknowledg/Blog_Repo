@@ -48,7 +48,9 @@ jobs:
       id: vars
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
-        echo "endpoint is:"
-        echo -n "wordpress" ; echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]*')
+        echo -n "endpoint is: "
+        echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]') > 
+        echo "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]'))" >> $GITHUB_OUTOUT
+        echo "wordpress"
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
