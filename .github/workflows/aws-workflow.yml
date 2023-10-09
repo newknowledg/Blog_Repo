@@ -50,6 +50,6 @@ jobs:
       run: |
         terraform state pull
         echo "endpoint is:"
-        echo $(terraform state pull | grep endpoint | awk '{print $3}' | tr -d '"')
+        echo $(terraform state pull | grep endpoint | awk '{print $2}' | tr -d '"')
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
