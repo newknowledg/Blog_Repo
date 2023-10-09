@@ -49,6 +49,6 @@ jobs:
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         echo "endpoint is:"
-        $(echo "wordpress" echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]*'))
+        $(echo "wordpress" ; echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]*'))
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
