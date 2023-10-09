@@ -38,11 +38,12 @@ jobs:
         sed -ie "s/{__PASS__}/${{ secrets.DB_PASS }}/g" main.tf
     - name: Terraform init
       working-directory: ${{ env.WORKING_DIRECTORY }}
+      id: tf_run
       run: |
         terraform init
         terraform plan
         terraform apply -auto-approve
         echo "endpoint is:"
-        echo $(terrform plan | grep endpoint | awk '{print $3}' | tr -d '"')
+        echo $(terraform plan | grep endpoint | awk '{print $3}' | tr -d '"')
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
