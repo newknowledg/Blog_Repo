@@ -7,6 +7,10 @@ on:
         description: "working directory"
         type: string
         required: true
+    outputs:
+      endpoint: 
+        description: "database endpoint"
+        value: "${{ steps.vars.outputs.endpoint }}"
     secrets:
       GCP_EMAIL:
         required: true
@@ -14,7 +18,7 @@ on:
         required: true
 
 env:
-  WORKING_DIRECTORY : ${{ inputs.WORKING_DIRECTORY }}
+  WORKING_DIRECTORY: ${{ inputs.WORKING_DIRECTORY }}
 
 jobs:
   tf_deployment:
@@ -51,6 +55,5 @@ jobs:
         echo -n "endpoint is: "
         echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]')
         echo "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]'))" >> $GITHUB_OUTPUT
-        echo "wordpress"
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
