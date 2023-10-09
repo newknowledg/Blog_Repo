@@ -42,5 +42,6 @@ jobs:
         terraform init
         terraform plan
         terraform apply -auto-approve
+        terraform destroy
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
