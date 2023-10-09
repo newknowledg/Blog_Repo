@@ -13,7 +13,8 @@ jobs:
     secrets: inherit
   verify_var:
     needs: aws_workflow
-    run: echo ${{ needs.aws_workflow.outputs.endpoint}}
+    steps:
+      run: echo ${{ needs.aws_workflow.outputs.endpoint}}
 # gcp_workflow:
 #   needs: aws_workflow
 #   if: (needs.aws_workflow.result == 'success')
