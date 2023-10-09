@@ -37,5 +37,5 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
     - name: Verify endpoint var
       run: |
-        EP=$(echo -n "wordpress" ; $(echo ${{ env.ENDPOINT }})
+        EP="wordpress.${{ env.ENDPOINT }}"
         echo $EP
