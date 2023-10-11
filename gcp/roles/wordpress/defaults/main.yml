@@ -1,0 +1,4 @@
+---
+wp_postgres_db: {__USER__}
+wp_postgres_user: {__USER__}
+wp_postgres_password: {__PASSWORD__}

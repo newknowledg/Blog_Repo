@@ -1,0 +1,8 @@
+---
+- name: Install WordPress
+  hosts: all
+  remote_user: ansible
+  become: true
+  roles:
+    - nginx
+    - wordpress
