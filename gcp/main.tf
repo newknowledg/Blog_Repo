@@ -18,6 +18,7 @@ resource "google_compute_subnetwork" "wordpress_subnet" {
 }
 
 resource "google_compute_firewall" "wp_fw" {
+    project  = "feisty-proton-401321"
     name = "wp-fw"
     network = google_compute_network.wordpress_net.id
 
