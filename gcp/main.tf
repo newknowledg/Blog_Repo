@@ -18,7 +18,7 @@ resource "google_compute_subnetwork" "wordpress_subnet" {
 }
 
 resource "google_compute_firewall" "wp_fw" {
-    name = "wp_fp"
+    name = "wp-fw"
     network = google_compute_network.wordpress_net.id
 
     allow {
