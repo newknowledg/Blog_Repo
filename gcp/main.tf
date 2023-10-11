@@ -1,6 +1,6 @@
 locals {
     ssh_user = "ansible"
-    private_key_path = "${{ secrets.ANSIBLE_KEY }}"
+    private_key_path = "ansible.ssh"
 }
 
 resource "google_compute_network" "wordpress_net" {
