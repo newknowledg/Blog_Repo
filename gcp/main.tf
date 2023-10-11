@@ -29,6 +29,7 @@ resource "google_compute_firewall" "wp_fw" {
 
     source_ranges = ["0.0.0.0/0"]
     target_service_accounts = ["github@feisty-proton-401321.iam.gserviceaccount.com"]
+    target_instances = [google_compute_instance.wordpress.id]
 }
 
 resource "google_compute_instance" "wordpress" {
