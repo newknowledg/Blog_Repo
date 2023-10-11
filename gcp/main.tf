@@ -1,3 +1,8 @@
+locals {
+    ssh_user = "ansible"
+    private_key_path = "ansible.ssh"
+}
+
 resource "google_compute_network" "wordpress_net" {
     project  = "feisty-proton-401321"
     name = "wordpress-network"
@@ -10,6 +15,16 @@ resource "google_compute_subnetwork" "wordpress_subnet" {
     ip_cidr_range = "10.20.0.0/16"
     region = "us-central1"
     network = google_compute_network.wordpress_net.id
+}
+
+resource "google_compute_firewall" "wp_fw" {
+    name = "wp_fp"
+    network = google_compute_network.wordpress_net.id
+
+    allow {
+        protocol = "tcp"
+        ports = ["80", "8080"]
+    }
 }
 
 resource "google_compute_instance" "wordpress" {

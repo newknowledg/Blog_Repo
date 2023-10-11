@@ -13,7 +13,6 @@ jobs:
     secrets: inherit
   gcp_workflow:
     needs: aws_workflow
-    if: (needs.aws_workflow.result == 'success')
     uses: ./.github/workflows/gcp-workflow.yml
     with:
       WORKING_DIRECTORY: "./gcp"
