@@ -62,7 +62,7 @@ resource "google_compute_instance" "wordpress" {
     }
 
     provisioner "local-exec" {
-        command = ansible-playbook -i ${google_compute_instance.wordpress.network_interface.0.access_config.0.nat_ip}, private-key ${local.private_key_path playbook.yml}
+        command = "ansible-playbook -i ${google_compute_instance.wordpress.network_interface.0.access_config.0.nat_ip}, private-key ${local.private_key_path playbook.yml}"
     }
 }
 
