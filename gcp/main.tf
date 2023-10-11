@@ -50,19 +50,19 @@ resource "google_compute_instance" "wordpress" {
             //necessary even empty
         }
     }
-}
+    provisioner "remote-exec" {
+        inline = ["echo 'Wait until SSH is ready'"]
 
-provisioner "remote-exec" {
-    inline = ["echo 'Wait until SSH is ready'"]
+        connection {
+            type = 'ssh'
+            user =  local.ssh_user
+            private_key = file(local.private_key_path)
+            host = google_compute_instance.wordpress.network_interface.0.access_config.0.nat_ip
+        }
+    }
 
-    connection {
-        type = 'ssh'
-        user =  local.ssh_user
-        private_key = file(local.private_key_path)
-        host = google_compute_instance.wordpress.network_interface.0.access_config.0.nat_ip
+    provisioner "local-exec" {
+        command = ansible-playbook -i ${google_compute_instance.wordpress.network_interface.0.access_config.0.nat_ip}, private-key ${local.private_key_path playbook.yml}
     }
 }
 
-provisioner "local-exec" {
-    command = ansible-playbook -i ${google_compute_instance.wordpress.network_interface.0.access_config.0.nat_ip}, private-key ${local.private_key_path playbook.yml}
-}
