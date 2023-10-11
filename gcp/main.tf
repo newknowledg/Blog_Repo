@@ -14,13 +14,13 @@ resource "google_compute_subnetwork" "wordpress_subnet" {
     name = "wordpress-subnet"
     ip_cidr_range = "10.20.0.0/16"
     region = "us-central1"
-    network = google_compute_network.wordpress_net.id
+    network = "default"
 }
 
 resource "google_compute_firewall" "wp_fw" {
     project  = "feisty-proton-401321"
     name = "wp-fw"
-    network = "default"
+    network = google_compute_network.wordpress_net.id
 
     allow {
         protocol = "tcp"
@@ -36,7 +36,7 @@ resource "google_compute_instance" "wordpress" {
     name = "wordpress-instance"
     machine_type = "e2-micro"
     zone = "us-central1-a"
-    allow_stopping_for_update = "true"
+    allow_stopping_for_update = true
 
     boot_disk{
         initialize_params {
