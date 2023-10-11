@@ -36,7 +36,7 @@ resource "google_compute_instance" "wordpress" {
     name = "wordpress-instance"
     machine_type = "e2-micro"
     zone = "us-central1-a"
-    allow_stopping_for_update = true
+    allow_stopping_for_update = "true"
 
     boot_disk{
         initialize_params {
