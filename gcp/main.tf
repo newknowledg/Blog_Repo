@@ -12,7 +12,7 @@ resource "google_compute_network" "wordpress_net" {
 resource "google_compute_subnetwork" "wordpress_subnet" {
     project  = "feisty-proton-401321"
     name = "wordpress-subnet"
-    ip_cidr_range = "0.0.0.0/0"
+    ip_cidr_range = "10.20.0.0/16"
     region = "us-central1"
     network = google_compute_network.wordpress_net.id
 }
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "wp_fw" {
     }
 
     source_ranges = ["0.0.0.0/0"]
-    target_service_accounts = ["github@feisty-proton-401321.iam.gserviceaccount.com", "none.your.business.here@gmail.com"]
+    target_service_accounts = ["github@feisty-proton-401321.iam.gserviceaccount.com", "791135505681-compute@developer.gserviceaccount.com"]
 }
 
 resource "google_compute_instance" "wordpress" {
