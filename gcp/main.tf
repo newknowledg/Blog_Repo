@@ -44,8 +44,8 @@ resource "google_compute_instance" "wordpress" {
     }
 
     network_interface {
-        network = google_compute_network.wordpress_net.id
-        subnetwork = google_compute_subnetwork.wordpress_subnet.id
+        network = "default"
+        subnetwork = "default"
         access_config{
             //necessary even empty
         }
