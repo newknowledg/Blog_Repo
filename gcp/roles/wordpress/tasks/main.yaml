@@ -5,12 +5,18 @@
 
 - name: Install python
   apt:
-    name: {{ item }}
+    name: python-3
     state: latest
-    with_items:
-      - python-3
-      - php7.2-gd
-      - php7.2-ssh2
+
+- name: Install php
+  apt:
+    name: php7.2-gd
+    state: latest
+       
+- name: Install php
+  apt:
+    name: php7.2-ssh2
+    state: latest
 
 - name: Download WordPress
   get_url:
