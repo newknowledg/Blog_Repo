@@ -10,7 +10,7 @@
 
 - name: Install php
   apt:
-    name: php
+    name: php7.3
     state: latest
        
 - name: Download WordPress
@@ -20,7 +20,7 @@
     validate_certs=no
 
 - name: Extract files
-  unarchive: src=/tmp/wordpress.tar.gz dest=/var/www/
+  unarchive: remote_src=/tmp/wordpress.tar.gz dest=/var/www/ copy=no
 
 - name: Copy sample config
   shell: cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
