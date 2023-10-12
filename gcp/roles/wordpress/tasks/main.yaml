@@ -9,9 +9,7 @@
     state: latest
 
 - name: Install php
-  apt:
-    name: {{ item }}
-    state: latest
+  apt: name={{ item }} state=present
   with_items:
     - php7.3-gd
     - php7.3-mysql
@@ -45,3 +43,8 @@
     - {'regexp': "define\\( 'DB_USER', '(.)+'\\);", 'line': "define( 'DB_USER', '{{wp_mysql_user}}');"}
     - {'regexp': "define\\( 'DB_PASSWORD', '(.)+'\\);", 'line': "define( 'DB_PASSWORD', '{{wp_mysql_password}}');"}
     - {'regexp': "define\\( 'DB_HOST', '(.)+'\\);", 'line': "define( 'DB_HOST', '{{wp_mysql_host}}');"}
+
+- name: Restart Apache2
+  systemd: 
+    name: apache2
+    state: restarted
