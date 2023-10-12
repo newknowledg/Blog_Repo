@@ -1,3 +1,16 @@
+resource "aws_security_group" "allow_external" {
+    name = "allow_external"
+    vpc_id = aws_vpc.main.id
+
+    ingress {
+        from_port = 3306
+        to_prot = 3306
+        protocol = "tcp"
+        cidr_blocks = [aws_vpc.main.cidr_block]
+        ipv6_cidr_blocks = [aws_vpc.main.ipv6_cidr_block]
+    }
+}
+
 resource "aws_db_instance" "wordpress" {
     allocated_storage = 20
     db_name = "wordpress_db"
@@ -11,6 +24,7 @@ resource "aws_db_instance" "wordpress" {
     publicly_accessible = true
     backup_retention_period = 7
     delete_automated_backups = true
+    vpc_security_group_ids = [aws_security_group.allow_external.id]
     username = "{__USER__}"
     password = "{__PASS__}"
     }
