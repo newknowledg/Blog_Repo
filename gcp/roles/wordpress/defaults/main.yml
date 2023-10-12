@@ -2,3 +2,4 @@
 wp_postgres_db: {__USER__}
 wp_postgres_user: {__USER__}
 wp_postgres_password: {__PASSWORD__}
+wp_postgres_host: {__HOST__}

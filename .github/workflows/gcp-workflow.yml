@@ -32,6 +32,7 @@ jobs:
       run: |
         sed -ie "s/{__USER__}/${{ secrets.DB_USER }}/g" roles/wordpress/defaults/main.yml
         sed -ie "s/{__PASS__}/${{ secrets.DB_PASS }}/g" roles/wordpress/defaults/main.yml
+        sed -ie "s/{__HOST__}/${{ secrets.DB_USER }}${{ env.ENDPOINT }}/g" roles/wordpress/defaults/main.yml
         echo "${{ secrets.ANSIBLE_KEY }}" > ansible.ssh
         chmod 600 ansible.ssh
     - name: Terraform init
