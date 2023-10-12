@@ -20,7 +20,7 @@
     validate_certs=no
 
 - name: Extract files
-  unarchive: remote_src=/tmp/wordpress.tar.gz dest=/var/www/ copy=no
+  unarchive: src=/tmp/wordpress.tar.gz dest=/var/www/ copy=no
 
 - name: Copy sample config
   shell: cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
