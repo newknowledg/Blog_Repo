@@ -10,14 +10,9 @@
 
 - name: Install php
   apt:
-    name: php7.2-gd
+    name: php
     state: latest
        
-- name: Install php
-  apt:
-    name: php7.2-ssh2
-    state: latest
-
 - name: Download WordPress
   get_url:
     url=https://wordpress.org/latest.tar.gz
