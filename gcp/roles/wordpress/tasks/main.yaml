@@ -10,7 +10,7 @@
 
 - name: Install php
   apt:
-    name: php7.3
+    name: php
     state: latest
        
 - name: Download WordPress
