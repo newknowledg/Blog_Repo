@@ -5,7 +5,7 @@
 
 - name: Install python
   apt:
-    name: python-3
+    name: python3
     state: latest
 
 - name: Install php
