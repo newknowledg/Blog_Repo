@@ -1,13 +1,12 @@
 resource "aws_security_group" "allow_external" {
     name = "allow_external"
-    vpc_id = aws_vpc.main.id
 
     ingress {
         from_port = 3306
         to_prot = 3306
         protocol = "tcp"
-        cidr_blocks = [aws_vpc.main.cidr_block]
-        ipv6_cidr_blocks = [aws_vpc.main.ipv6_cidr_block]
+        cidr_blocks = ["0.0.0.0/0"]
+        ipv6_cidr_blocks = ["::/0"]
     }
 }
 
