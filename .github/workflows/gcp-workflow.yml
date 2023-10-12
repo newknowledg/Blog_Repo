@@ -30,6 +30,7 @@ jobs:
     - name: Set DB Creds
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
+        sed -ie "s/{__NAME__}/${{ secrets.DB_NAME }}/g" roles/wordpress/defaults/main.yml
         sed -ie "s/{__USER__}/${{ secrets.DB_USER }}/g" roles/wordpress/defaults/main.yml
         sed -ie "s/{__PASSWORD__}/${{ secrets.DB_PASS }}/g" roles/wordpress/defaults/main.yml
         sed -ie "s/{__HOST__}/${{ secrets.DB_USER }}${{ env.ENDPOINT }}/g" roles/wordpress/defaults/main.yml

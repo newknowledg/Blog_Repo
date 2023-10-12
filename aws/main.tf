@@ -12,7 +12,7 @@ resource "aws_security_group" "allow_external" {
 
 resource "aws_db_instance" "wordpress" {
     allocated_storage = 20
-    db_name = "wordpress_db"
+    db_name = "{__NAME__}"
     engine = "mysql"
     engine_version = "5.7"
     instance_class = "db.t3.micro"

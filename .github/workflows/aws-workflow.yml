@@ -40,6 +40,7 @@ jobs:
     - name: Set DB Creds
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
+        sed -ie "s/{__NAME__}/${{ secrets.DB_NAME }}/g" main.tf
         sed -ie "s/{__USER__}/${{ secrets.DB_USER }}/g" main.tf
         sed -ie "s/{__PASS__}/${{ secrets.DB_PASS }}/g" main.tf
     - name: Terraform init
