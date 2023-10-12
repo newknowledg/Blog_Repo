@@ -1,5 +1,5 @@
 ---
-wp_postgres_db: {__USER__}
-wp_postgres_user: {__USER__}
-wp_postgres_password: {__PASSWORD__}
-wp_postgres_host: {__HOST__}
+wp_mysql_db: {__USER__}
+wp_mysql_user: {__USER__}
+wp_mysql_password: {__PASSWORD__}
+wp_mysql_host: {__HOST__}
