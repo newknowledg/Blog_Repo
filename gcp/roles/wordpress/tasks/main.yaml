@@ -11,8 +11,7 @@
 - name: Install php
   apt: name={{ item }} state=present
   with_items:
-    - php7.3-gd
-    - php7.3-mysql
+    - php-gd
     - php-mysql
        
 - name: Download WordPress
