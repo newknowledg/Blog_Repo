@@ -3,7 +3,7 @@ resource "aws_security_group" "allow_external" {
 
     ingress {
         from_port = 3306
-        to_prot = 3306
+        to_port = 3306
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]
