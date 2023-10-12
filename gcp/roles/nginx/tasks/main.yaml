@@ -1,10 +1,10 @@
 ---
-- name: Install nginx
+- name: Install Apache
   apt:
-    name: nginx
+    name: apache2
     state: latest
 
-- name: Start nginx
+- name: Start apache2
   systemd:
       state: started
-      name: nginx
+      name: apache2
