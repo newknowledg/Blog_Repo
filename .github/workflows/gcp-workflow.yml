@@ -40,11 +40,7 @@ jobs:
       run: |
         terraform init
         terraform plan
-        terraform destroy -auto-approve
-        #terraform apply -auto-approve
+        #terraform destroy -auto-approve
+        terraform apply -auto-approve
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-    - name: Verify endpoint var
-      run: |
-        EP="${{ secrets.DB_USER }}${{ env.ENDPOINT }}"
-        echo $EP
