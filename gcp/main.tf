@@ -24,7 +24,7 @@ resource "google_compute_firewall" "wp_fw" {
 
     allow {
         protocol = "tcp"
-        ports = ["80", "8080", "22"]
+        ports = ["80", "8080", "22", "443", "8443"]
     }
 
     source_ranges = ["0.0.0.0/0"]
