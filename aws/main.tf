@@ -14,10 +14,10 @@ resource "aws_db_instance" "wordpress" {
     allocated_storage = 20
     db_name = "{__NAME__}"
     engine = "mysql"
-    engine_version = "5.7"
+    engine_version = "8.0.35"
     ca_cert_identifier = "rds-ca-rsa2048-g1"
     instance_class = "db.t3.micro"
-    parameter_group_name = "default.mysql5.7"
+    parameter_group_name = "default.mysql8.0"
     skip_final_snapshot = true
     identifier = "wordpress"
     storage_encrypted = true
