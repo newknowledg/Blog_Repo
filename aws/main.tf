@@ -15,6 +15,7 @@ resource "aws_db_instance" "wordpress" {
     db_name = "{__NAME__}"
     engine = "mysql"
     engine_version = "5.7"
+    ca_cert_identifier = "rds-ca-rsa2048-g1"
     instance_class = "db.t3.micro"
     parameter_group_name = "default.mysql5.7"
     skip_final_snapshot = true
