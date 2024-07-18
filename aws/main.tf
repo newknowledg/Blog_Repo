@@ -16,9 +16,8 @@ resource "aws_db_instance" "wordpress" {
     engine = "mysql"
     engine_version = "8.0.35"
     ca_cert_identifier = "rds-ca-rsa2048-g1"
-    parameter_group_name = "require-secure-transport"
     instance_class = "db.t3.micro"
-    parameter_group_name = "default.mysql8.0"
+    parameter_group_name = "require-secure-transport"
     skip_final_snapshot = true
     identifier = "wordpress"
     storage_encrypted = true
