@@ -23,6 +23,9 @@ env:
 jobs:
   tf_deployment:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     outputs:
       endpoint: ${{ steps.vars.outputs.endpoint }}
     steps:
