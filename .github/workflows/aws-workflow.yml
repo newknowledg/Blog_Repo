@@ -51,6 +51,8 @@ jobs:
         sed -ie "s/{__NAME__}/${{ secrets.DB_NAME }}/g" main.tf
         sed -ie "s/{__USER__}/${{ secrets.DB_USER }}/g" main.tf
         sed -ie "s/{__PASS__}/${{ secrets.DB_PASS }}/g" main.tf
+        sed -ie "s/{__PROJECT_ID__}/${{ secrets.PROJECT_ID }}/g" main.tf
+        sed -ie "s/{__VPC_ID__}/${{ secrets.VPC_ID }}/g" main.tf
         sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}/g" main.tf
         sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}/g" main.tf
         sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}/g" main.tf
