@@ -4,13 +4,13 @@ locals {
 }
 
 resource "google_compute_network" "wordpress_net" {
-    project  = "feisty-proton-401321"
+    project  = "{__PROJECT_ID__}"
     name = "wordpress-network"
     auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "wordpress_subnet" {
-    project  = "feisty-proton-401321"
+    project  = "{__PROJECT_ID__}"
     name = "wordpress-subnet"
     ip_cidr_range = "10.20.0.0/16"
     region = "us-central1"
@@ -18,7 +18,7 @@ resource "google_compute_subnetwork" "wordpress_subnet" {
 }
 
 resource "google_compute_firewall" "wp_fw" {
-    project  = "feisty-proton-401321"
+    project  = "{__PROJECT_ID__}"
     name = "wp-fw"
     network = google_compute_network.wordpress_net.id
 
@@ -31,7 +31,7 @@ resource "google_compute_firewall" "wp_fw" {
 }
 
 resource "google_compute_instance" "wordpress" {
-    project  = "feisty-proton-401321"
+    project  = "{__PROJECT_ID__}"
     name = "wordpress-instance"
     machine_type = "e2-micro"
     zone = "us-central1-a"
@@ -80,7 +80,7 @@ module "vpn-prod-internal" {
   source  = "terraform-google-modules/vpn/google"
   version = "~> 1.2.0"
 
-  project_id  = "feisty-proton-401321"
+  project_id  = "{__PROJECT_ID__}"
   network = "wordpress-network"
   region  = "us-central1"
   gateway_name       = "aws-gcp-vpn"
