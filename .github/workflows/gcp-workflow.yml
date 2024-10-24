@@ -11,6 +11,22 @@ on:
         description: "change database endpoint"
         type: string
         required: true
+      TUNNEL1_ADDRESS: 
+        description: "vpn gateway address"
+        type: string
+        required: true
+      TUNNEL2_ADDRESS: 
+        description: "vpn gateway address"
+        type: string
+        required: true
+      TUNNEL1_LOCAL_ADDRESS: 
+        description: "gateway CIDR"
+        type: string
+        required: true
+      TUNNEL2_LOCAL_ADDRESS: 
+        description: "gateway CIDR"
+        type: string
+        required: true
     secrets:
       GCP_EMAIL:
         required: true
@@ -27,6 +43,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Setup Terraform CLI
+      uses: hashicorp/setup-terraform@v2.0.2
     - name: Set DB Creds
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
@@ -36,6 +54,20 @@ jobs:
         sed -ie "s/{__HOST__}/${{ secrets.DB_USER }}${{ env.ENDPOINT }}/g" roles/wordpress/defaults/main.yml
         echo "${{ secrets.ANSIBLE_KEY }}" > ansible.ssh
         chmod 600 ansible.ssh
+        sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}" main.tf
+        sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}" main.tf
+        sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}" main.tf
+        sed -ie "s/{__SHARED_SECRET__}/${{ secrets.SHARED_SECRET }}" main.tf
+        sed -ie "s/{__AWS_IP1__}/${{ env.TUNNEL1_ADDRESS }}" main.tf
+        sed -ie "s/{__AWS_IP2__}/${{ env.TUNNEL2_ADDRESS }}" main.tf
+        sed -ie "s/{__SN1__}/${{ env.TUNNEL1_LOCAL_ADDRESS }}" main.tf
+        sed -ie "s/{__SN2__}/${{ env.TUNNEL2_LOCAL_ADDRESS }}" main.tf
+    - name: GCP Authentication
+      uses: 'google-GitHub-actions/auth@v1'
+      with:
+        create_credentials_file: true
+        workload_identity_provider: "principal://iam.googleapis.com/projects/791135505681/locations/global/workloadIdentityPools/github-actions/providers/github-actions"
+        service_account: "github@feisty-proton-401321.iam.gserviceaccount.com"
     - name: Terraform init
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
@@ -43,5 +75,5 @@ jobs:
         terraform plan
         #terraform destroy -auto-approve
         terraform apply -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      #env:
+      #  GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}

@@ -21,4 +21,8 @@ jobs:
     with:
       WORKING_DIRECTORY: "./gcp"
       ENDPOINT: "${{ needs.aws_workflow.outputs.endpoint }}"
+      TUNNEL1_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel1_address }}"
+      TUNNEL2_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel2_address }}"
+      TUNNEL1_LOCAL_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel1_local_address }}"
+      TUNNEL2_LOCAL_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel2_local_address }}"
     secrets: inherit

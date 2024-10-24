@@ -29,6 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       endpoint: ${{ steps.vars.outputs.endpoint }}
+      tunnel1_address: ${{ steps.vars.outputs.tunnel1_address  }}
+      tunnel2_address: ${{ steps.vars.outputs.tunnel2_address  }}
+      tunnel1_local_address: ${{ steps.vars.outputs.tunnel1_local_address  }}
+      tunnel2_local_address: ${{ steps.vars.outputs.tunnel2_local_address  }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -47,6 +51,10 @@ jobs:
         sed -ie "s/{__NAME__}/${{ secrets.DB_NAME }}/g" main.tf
         sed -ie "s/{__USER__}/${{ secrets.DB_USER }}/g" main.tf
         sed -ie "s/{__PASS__}/${{ secrets.DB_PASS }}/g" main.tf
+        sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}" main.tf
+        sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}" main.tf
+        sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}" main.tf
+        sed -ie "s/{__SHARED_SECRET__}/${{ secrets.SHARED_SECRET }}" main.tf
     - name: Terraform init
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
@@ -62,6 +70,14 @@ jobs:
       run: |
         echo -n "endpoint is: "
         echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]')
+        echo -n "tunnel_address1 is: "
+        echo $(terraform state pull | grep tunnel1_address | awk -F ':' '{print $2}' | tr -d '",')
+        echo -n "tunnel_address2 is: "
+        echo $(terraform state pull | grep tunnel2_address | awk -F ':' '{print $2}' | tr -d '",')
         echo -n "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]' | sed 's/${{ secrets.DB_USER }}//g'))" >> $GITHUB_OUTPUT
+        echo -n "tunnel1_address=$(echo $(terraform state pull | grep tunnel1_address | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo -n "tunnel2_address=$(echo $(terraform state pull | grep tunnel2_address | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo -n "tunnel1_local_address=$(echo $(terraform state pull | grep tunnel1_vgw_inside_addres | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo -n "tunnel2_local_address=$(echo $(terraform state pull | grep tunnel2_vgw_inside_addres | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
