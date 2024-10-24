@@ -76,7 +76,7 @@ resource "google_compute_router" "vpn-route" {
   }
 }
 
-module "vpn-prod-internal" {
+module "vpn-manage-internal" {
   source  = "terraform-google-modules/vpn/google"
   version = "~> 1.2.0"
 
