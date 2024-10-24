@@ -135,9 +135,20 @@ resource "google_compute_address" "default" {
  name = "vpn" 
 }
 
+
+resource "google_compute_interconnect" "interconnect" {
+  name                 = "interconnect"
+  customer_name        = "aws"
+  interconnect_type    = "DEDICATED"
+  link_type            = "LINK_TYPE_ETHERNET_10G_LR"
+  remote_location      = "{__AWS_IP1__}"
+  requested_link_count = 1
+}
+
 resource "google_compute_interconnect_attachment" "attachment1" {
   name                     = "test-interconnect-attachment1"
   type                     = "DEDICATED"
+  interconnect             = google_compute_interconnect.interconnect.id
   router                   = google_compute_router.vpn-router.id
   region                   = "us-central1"
   project                  = "{__PROJECT_ID__}"
