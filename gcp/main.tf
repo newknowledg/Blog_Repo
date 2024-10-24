@@ -76,7 +76,7 @@ resource "google_compute_router" "vpn-route" {
   }
 }
 
-module "vpn-manage-internal" {
+module "vpn-prod-internal" {
   source  = "terraform-google-modules/vpn/google"
   version = "~> 1.2.0"
 
@@ -87,10 +87,10 @@ module "vpn-manage-internal" {
   tunnel_name_prefix = "aws-gcp-vpn-tunnel"
   shared_secret      = "{__SHARED_SECRET__}"
   tunnel_count       = 2
-  vpn_gw_ip          = "{__GCP_IP__}"
   peer_asn           = ["{__AWS_ASN__}"]
   peer_ips           = ["{__AWS_IP1__}", "{__AWS_IP2__}"]
 
   route_priority = 1000
   remote_subnet  = ["{__SN1__}", "{__SN2__}"]
+  vpn_gw_ip          = "{__GCP_IP__}"
 }
