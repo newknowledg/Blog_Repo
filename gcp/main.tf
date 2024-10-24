@@ -138,7 +138,6 @@ resource "google_compute_address" "default" {
 resource "google_compute_interconnect_attachment" "attachment1" {
   name                     = "test-interconnect-attachment1"
   edge_availability_domain = "AVAILABILITY_DOMAIN_1"
-  type                     = "PARTNER"
   router                   = google_compute_router.vpn-router.id
   region                   = "us-central1"
   project                  = "{__PROJECT_ID__}"
