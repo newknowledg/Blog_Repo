@@ -78,7 +78,7 @@ resource "google_compute_router" "vpn-route" {
 resource "google_compute_ha_vpn_gateway" "ha_gateway" {
   region   = "us-central1"
   name     = "ha-vpn"
-  network  = google_compute_network.wordpress_network.id
+  network  = google_compute_network.wordpress_net.id
 }
 
 resource "google_compute_external_vpn_gateway" "external_gateway" {
