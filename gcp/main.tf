@@ -83,11 +83,16 @@ resource "google_compute_ha_vpn_gateway" "ha_gateway" {
 
 resource "google_compute_external_vpn_gateway" "external_gateway" {
   name            = "external-gateway"
-  redundancy_type = "SINGLE_IP_INTERNALLY_REDUNDANT"
+  redundancy_type = "TWO_IPS_REDUNDANCY"
   description     = "An externally managed VPN gateway"
   interface {
     id         = 0
-    ip_address = "{__GCP_IP__}"
+    ip_address = "{__AWS_IP1__}"
+  }
+  
+  interface {
+    id         = 1
+    ip_address = "{__AWS_IP2__}"
   }
 }
 
@@ -121,11 +126,27 @@ resource "google_compute_router_interface" "router1_interface1" {
   vpn_tunnel = google_compute_vpn_tunnel.tunnel1.name
 }
 
+import {
+  id = "projects/{__PROJECT_ID__}/regions/us-central1/addresses/vpn"
+  to = google_compute_address.default
+}
+
+resource "google_compute_interconnect_attachment" "attachment1" {
+  name                     = "test-interconnect-attachment1"
+  edge_availability_domain = "AVAILABILITY_DOMAIN_1"
+  type                     = "PARTNER"
+  router                   = google_compute_router.router.id
+  encryption               = "IPSEC"
+  ipsec_internal_addresses = [
+    google_compute_address.default.self_link,
+  ]
+}
+
 resource "google_compute_router_peer" "router1_peer1" {
   name                      = "router1-peer1"
   router                    = google_compute_router.vpn-router.name
   region                    = "us-central1"
-  peer_ip_address           = "{__AWS_IP1__}"
+  peer_ip_address           = "{__SN1__}"
   peer_asn                  = {__AWS_ASN__}
   advertised_route_priority = 100
   interface                 = google_compute_router_interface.router1_interface1.name
@@ -143,7 +164,7 @@ resource "google_compute_router_peer" "router1_peer2" {
   name                      = "router1-peer2"
   router                    = google_compute_router.vpn-router.name
   region                    = "us-central1"
-  peer_ip_address           = "{__AWS_IP2__}"
+  peer_ip_address           = "{__SN2__}"
   peer_asn                  = {__AWS_ASN__}
   advertised_route_priority = 100
   interface                 = google_compute_router_interface.router1_interface2.name
