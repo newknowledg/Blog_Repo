@@ -132,7 +132,7 @@ import {
 }
 
 resource "google_compute_address" "default" {
- name: "vpn" 
+ name = "vpn" 
 }
 
 resource "google_compute_interconnect_attachment" "attachment1" {
