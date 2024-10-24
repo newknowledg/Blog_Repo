@@ -66,7 +66,7 @@ resource "google_compute_instance" "wordpress" {
     }
 }
 
-resource "google_compute_router" "vpn-route" {
+resource "google_compute_router" "vpn-router" {
   name    = "vpn-route"
   region  = "us-central1"
   network = "wordpress-network"
