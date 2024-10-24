@@ -39,7 +39,7 @@ resource "aws_vpn_gateway" "vpn_gw" {
 }
 
 resource "aws_customer_gateway" "main" {
-  bgp_asn    = {__GCP_ASN___}
+  bgp_asn    = {__GCP_ASN__}
   ip_address = "{__GCP_IP__}"
   type       = "ipsec.1"
   tunnel1_preshared_key = "{__SHARED_SECRET__}"
