@@ -133,7 +133,7 @@ resource "google_compute_interconnect_attachment" "attachment1" {
   router                   = google_compute_router.vpn-router.id
   encryption               = "IPSEC"
   ipsec_internal_addresses = [
-    {__GCP_IP__},
+    "{__GCP_IP__}",
   ]
 }
 
