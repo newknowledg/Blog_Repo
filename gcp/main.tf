@@ -126,15 +126,6 @@ resource "google_compute_router_interface" "router1_interface1" {
   vpn_tunnel = google_compute_vpn_tunnel.tunnel1.name
 }
 
-resource "google_compute_address" "default" {
-  
-}
-
-import {
-  id = "projects/{__PROJECT_ID__}/regions/us-central1/addresses/vpn"
-  to = google_compute_address.default
-}
-
 resource "google_compute_interconnect_attachment" "attachment1" {
   name                     = "test-interconnect-attachment1"
   edge_availability_domain = "AVAILABILITY_DOMAIN_1"
@@ -142,7 +133,7 @@ resource "google_compute_interconnect_attachment" "attachment1" {
   router                   = google_compute_router.vpn-router.id
   encryption               = "IPSEC"
   ipsec_internal_addresses = [
-    google_compute_address.default.self_link,
+    {__GCP_IP__},
   ]
 }
 
