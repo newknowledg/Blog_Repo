@@ -126,6 +126,10 @@ resource "google_compute_router_interface" "router1_interface1" {
   vpn_tunnel = google_compute_vpn_tunnel.tunnel1.name
 }
 
+resource "google_compute_address" "default" {
+  
+}
+
 import {
   id = "projects/{__PROJECT_ID__}/regions/us-central1/addresses/vpn"
   to = google_compute_address.default
