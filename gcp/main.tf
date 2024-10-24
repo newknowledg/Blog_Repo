@@ -144,7 +144,7 @@ resource "google_compute_router_peer" "router1_peer2" {
   router                    = google_compute_router.vpn-router.name
   region                    = "us-central1"
   peer_ip_address           = "{__AWS_IP2__}"
-  peer_asn                  = {__AWS_ASN__  }
+  peer_asn                  = {__AWS_ASN__}
   advertised_route_priority = 100
   interface                 = google_compute_router_interface.router1_interface2.name
 }
