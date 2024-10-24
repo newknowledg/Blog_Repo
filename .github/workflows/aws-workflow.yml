@@ -51,9 +51,9 @@ jobs:
         sed -ie "s/{__NAME__}/${{ secrets.DB_NAME }}/g" main.tf
         sed -ie "s/{__USER__}/${{ secrets.DB_USER }}/g" main.tf
         sed -ie "s/{__PASS__}/${{ secrets.DB_PASS }}/g" main.tf
-        sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}" main.tf
-        sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}" main.tf
-        sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}" main.tf
+        sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}/g" main.tf
+        sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}/g" main.tf
+        sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}/g" main.tf
         sed -ie "s/{__SHARED_SECRET__}/${{ secrets.SHARED_SECRET }}" main.tf
     - name: Terraform init
       working-directory: ${{ env.WORKING_DIRECTORY }}
