@@ -69,6 +69,7 @@ jobs:
         echo "${{ secrets.ANSIBLE_KEY }}" > ansible.ssh
         chmod 600 ansible.ssh
         sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}/g" main.tf
+        sed -ie "s/{__PROJECT_ID__}/${{ secrets.PROJECT_ID }}/g" main.tf
         sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}/g" main.tf
         sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}/g" main.tf
         sed -ie "s/{__SHARED_SECRET__}/${{ secrets.SHARED_SECRET }}/g" main.tf
