@@ -79,8 +79,8 @@ jobs:
         echo ${{ env.TUNNEL2_ADDRESS }}
         sed -ie "s/{__SN1__}/${{ env.TUNNEL1_LOCAL_ADDRESS }}/g" main.tf
         sed -ie "s/{__SN2__}/${{ env.TUNNEL2_LOCAL_ADDRESS }}/g" main.tf
-        sed -ie "s/{__CIDR1__}/${{ env.TUNNEL1_CIDR }}/g" main.tf
-        sed -ie "s/{__CIDR2__}/${{ env.TUNNEL2_CIDR }}/g" main.tf
+        sed -ie "s|{__CIDR1__}|${{ env.TUNNEL1_CIDR }}|g" main.tf
+        sed -ie "s|{__CIDR2__}|${{ env.TUNNEL2_CIDR }}|g" main.tf
     - name: GCP Authentication
       uses: 'google-GitHub-actions/auth@v1'
       with:
