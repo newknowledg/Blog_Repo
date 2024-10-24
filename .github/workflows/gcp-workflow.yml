@@ -54,14 +54,14 @@ jobs:
         sed -ie "s/{__HOST__}/${{ secrets.DB_USER }}${{ env.ENDPOINT }}/g" roles/wordpress/defaults/main.yml
         echo "${{ secrets.ANSIBLE_KEY }}" > ansible.ssh
         chmod 600 ansible.ssh
-        sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}" main.tf
-        sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}" main.tf
-        sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}" main.tf
-        sed -ie "s/{__SHARED_SECRET__}/${{ secrets.SHARED_SECRET }}" main.tf
-        sed -ie "s/{__AWS_IP1__}/${{ env.TUNNEL1_ADDRESS }}" main.tf
-        sed -ie "s/{__AWS_IP2__}/${{ env.TUNNEL2_ADDRESS }}" main.tf
-        sed -ie "s/{__SN1__}/${{ env.TUNNEL1_LOCAL_ADDRESS }}" main.tf
-        sed -ie "s/{__SN2__}/${{ env.TUNNEL2_LOCAL_ADDRESS }}" main.tf
+        sed -ie "s/{__GCP_IP__}/${{ secrets.GCP_IP }}/g" main.tf
+        sed -ie "s/{__GCP_ASN__}/${{ secrets.GCP_ASN }}/g" main.tf
+        sed -ie "s/{__AWS_ASN__}/${{ secrets.AWS_ASN }}/g" main.tf
+        sed -ie "s/{__SHARED_SECRET__}/${{ secrets.SHARED_SECRET }}/g" main.tf
+        sed -ie "s/{__AWS_IP1__}/${{ env.TUNNEL1_ADDRESS }}/g" main.tf
+        sed -ie "s/{__AWS_IP2__}/${{ env.TUNNEL2_ADDRESS }}/g" main.tf
+        sed -ie "s/{__SN1__}/${{ env.TUNNEL1_LOCAL_ADDRESS }}/g" main.tf
+        sed -ie "s/{__SN2__}/${{ env.TUNNEL2_LOCAL_ADDRESS }}/g" main.tf
     - name: GCP Authentication
       uses: 'google-GitHub-actions/auth@v1'
       with:
