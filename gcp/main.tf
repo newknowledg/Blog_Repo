@@ -135,7 +135,7 @@ resource "google_compute_interconnect_attachment" "attachment1" {
   name                     = "test-interconnect-attachment1"
   edge_availability_domain = "AVAILABILITY_DOMAIN_1"
   type                     = "PARTNER"
-  router                   = google_compute_router.router.id
+  router                   = google_compute_router.vpn-router.id
   encryption               = "IPSEC"
   ipsec_internal_addresses = [
     google_compute_address.default.self_link,
