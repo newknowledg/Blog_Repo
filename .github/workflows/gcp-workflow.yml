@@ -66,7 +66,7 @@ jobs:
       uses: 'google-GitHub-actions/auth@v1'
       with:
         create_credentials_file: true
-        workload_identity_provider: "principal://iam.googleapis.com/projects/791135505681/locations/global/workloadIdentityPools/github-actions/providers/github-actions"
+        workload_identity_provider: "projects/791135505681/locations/global/workloadIdentityPools/github-actions/providers/github-actions"
         service_account: "github@feisty-proton-401321.iam.gserviceaccount.com"
     - name: Terraform init
       working-directory: ${{ env.WORKING_DIRECTORY }}
