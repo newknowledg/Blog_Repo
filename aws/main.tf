@@ -42,8 +42,6 @@ resource "aws_customer_gateway" "main" {
   bgp_asn    = {__GCP_ASN__}
   ip_address = "{__GCP_IP__}"
   type       = "ipsec.1"
-  tunnel1_preshared_key = "{__SHARED_SECRET__}"
-  tunnel2_preshared_key = "{__SHARED_SECRET__}"
   
   tags = {
     Name = "gcp-info"
@@ -55,6 +53,8 @@ resource "aws_vpn_connection" "main" {
   customer_gateway_id = aws_customer_gateway.main.id
   type                = "ipsec.1"
   static_routes_only  = true
+  tunnel1_preshared_key = "{__SHARED_SECRET__}"
+  tunnel2_preshared_key = "{__SHARED_SECRET__}"
 }
 
 resource "aws_vpn_connection_route" "gcp" {
