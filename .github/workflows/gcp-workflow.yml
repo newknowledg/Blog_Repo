@@ -27,6 +27,14 @@ on:
         description: "gateway CIDR"
         type: string
         required: true
+      TUNNEL1_CIDR: 
+        description: "gateway CIDR"
+        type: string
+        required: true
+      TUNNEL2_CIDR: 
+        description: "gateway CIDR"
+        type: string
+        required: true
     secrets:
       GCP_EMAIL:
         required: true
@@ -36,6 +44,12 @@ on:
 env:
   WORKING_DIRECTORY: ${{ inputs.WORKING_DIRECTORY }}
   ENDPOINT: ${{ inputs.ENDPOINT }}
+  TUNNEL1_ADDRESS: ${{ inputs.TUNNEL1_ADDRESS }}
+  TUNNEL2_ADDRESS: ${{ inputs.TUNNEL2_ADDRESS }}
+  TUNNEL1_LOCAL_ADDRESS: ${{ inputs.TUNNEL1_LOCAL_ADDRESS }}
+  TUNNEL2_LOCAL_ADDRESS: ${{ inputs.TUNNEL2_LOCAL_ADDRESS }}
+  TUNNEL1_CIDR: ${{ inputs.TUNNEL1_CIDR }}
+  TUNNEL2_CIDR: ${{ inputs.TUNNEL2_CIDR }}
 
 jobs:
   tf_deployment:
@@ -62,6 +76,8 @@ jobs:
         sed -ie "s/{__AWS_IP2__}/${{ env.TUNNEL2_ADDRESS }}/g" main.tf
         sed -ie "s/{__SN1__}/${{ env.TUNNEL1_LOCAL_ADDRESS }}/g" main.tf
         sed -ie "s/{__SN2__}/${{ env.TUNNEL2_LOCAL_ADDRESS }}/g" main.tf
+        sed -ie "s/{__CIDR1__}/${{ env.TUNNEL1_CIDR }}/g" main.tf
+        sed -ie "s/{__CIDR2__}/${{ env.TUNNEL2_CIDR }}/g" main.tf
     - name: GCP Authentication
       uses: 'google-GitHub-actions/auth@v1'
       with:

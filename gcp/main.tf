@@ -75,22 +75,76 @@ resource "google_compute_router" "vpn-route" {
     asn = "{__GCP_ASN__}"
   }
 }
+resource "google_compute_ha_vpn_gateway" "ha_gateway" {
+  region   = "us-central1"
+  name     = "ha-vpn"
+  network  = google_compute_network.wordpress_network.id
+}
 
-module "vpn-prod-internal" {
-  source  = "terraform-google-modules/vpn/google"
-  version = "~> 1.2.0"
+resource "google_compute_external_vpn_gateway" "external_gateway" {
+  name            = "external-gateway"
+  redundancy_type = "SINGLE_IP_INTERNALLY_REDUNDANT"
+  description     = "An externally managed VPN gateway"
+  interface {
+    id         = 0
+    ip_address = "{__GCP_IP__}"
+  }
+}
 
-  project_id  = "{__PROJECT_ID__}"
-  network = "wordpress-network"
-  region  = "us-central1"
-  gateway_name       = "aws-gcp-vpn"
-  tunnel_name_prefix = "aws-gcp-vpn-tunnel"
-  shared_secret      = "{__SHARED_SECRET__}"
-  tunnel_count       = 2
-  peer_asn           = ["{__AWS_ASN__}"]
-  peer_ips           = ["{__AWS_IP1__}", "{__AWS_IP2__}"]
+resource "google_compute_vpn_tunnel" "tunnel1" {
+  name                            = "ha-vpn-tunnel1"
+  region                          = "us-central1"
+  vpn_gateway                     = google_compute_ha_vpn_gateway.ha_gateway.id
+  peer_external_gateway           = google_compute_external_vpn_gateway.external_gateway.id
+  peer_external_gateway_interface = 0
+  shared_secret                   = "{__SHARED_SECRET__}"
+  router                          = google_compute_router.vpn-router.id
+  vpn_gateway_interface           = 0
+}
 
-  route_priority = 1000
-  remote_subnet  = ["{__SN1__}", "{__SN2__}"]
-  vpn_gw_ip          = "{__GCP_IP__}"
+resource "google_compute_vpn_tunnel" "tunnel2" {
+  name                            = "ha-vpn-tunnel2"
+  region                          = "us-central1"
+  vpn_gateway                     = google_compute_ha_vpn_gateway.ha_gateway.id
+  peer_external_gateway           = google_compute_external_vpn_gateway.external_gateway.id
+  peer_external_gateway_interface = 0
+  shared_secret                   = "{__SHARED_SECRET__}"
+  router                          = google_compute_router.vpn-router.id
+  vpn_gateway_interface           = 1
+}
+
+resource "google_compute_router_interface" "router1_interface1" {
+  name       = "router1-interface1"
+  router     = google_compute_router.vpn-router.name
+  region     = "us-central1"
+  ip_range   = "{__CIDR1__}"
+  vpn_tunnel = google_compute_vpn_tunnel.tunnel1.name
+}
+
+resource "google_compute_router_peer" "router1_peer1" {
+  name                      = "router1-peer1"
+  router                    = google_compute_router.router1.name
+  region                    = "us-central1"
+  peer_ip_address           = "{__AWS_IP1__}"
+  peer_asn                  = {__AWS_ASN__}
+  advertised_route_priority = 100
+  interface                 = google_compute_router_interface.router1_interface1.name
+}
+
+resource "google_compute_router_interface" "router1_interface2" {
+  name       = "router1-interface2"
+  router     = google_compute_router.router1.name
+  region     = "us-central1"
+  ip_range   = "{__CIDR2__}"
+  vpn_tunnel = google_compute_vpn_tunnel.tunnel2.name
+}
+
+resource "google_compute_router_peer" "router1_peer2" {
+  name                      = "router1-peer2"
+  router                    = google_compute_router.vpn-router.name
+  region                    = "us-central1"
+  peer_ip_address           = "{__AWS_IP2__}"
+  peer_asn                  = {__AWS_ASN__  }
+  advertised_route_priority = 100
+  interface                 = google_compute_router_interface.router1_interface2.name
 }

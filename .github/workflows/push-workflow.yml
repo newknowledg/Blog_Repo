@@ -25,4 +25,6 @@ jobs:
       TUNNEL2_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel2_address }}"
       TUNNEL1_LOCAL_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel1_local_address }}"
       TUNNEL2_LOCAL_ADDRESS: "${{ needs.aws_workflow.outputs.tunnel2_local_address }}"
+      TUNNEL1_CIDR: "${{ needs.aws_workflow.outputs.tunnel1_cidr }}"
+      TUNNEL2_CIDR: "${{ needs.aws_workflow.outputs.tunnel2_cidr }}"
     secrets: inherit
