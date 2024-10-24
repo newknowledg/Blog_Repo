@@ -11,6 +11,24 @@ on:
       endpoint: 
         description: "database endpoint"
         value: "${{ jobs.tf_deployment.outputs.endpoint }}"
+      tunnel1_address:
+        description: "tunnel1 address"
+        value: "${{ jobs.tf_deployment.outputs.tunnel1_address }}"
+      tunnel2_address:
+        description: "tunnel2 address"
+        value: "${{ jobs.tf_deployment.outputs.tunnel2_address }}"
+      tunnel1_local_address:
+        description: "tunnel1 local address"
+        value: "${{ jobs.tf_deployment.outputs.tunnel1_local_address }}"
+      tunnel2_local_address:
+        description: "tunnel2 local address"
+        value: "${{ jobs.tf_deployment.outputs.tunnel2_local_address }}"
+      tunnel1_cidr:
+        description: "tunnel1 cidr"
+        value: "${{ jobs.tf_deployment.outputs.tunnel1_cidr }}"
+      tunnel2_cidr:
+        description: "tunnel1 cidr"
+        value: "${{ jobs.tf_deployment.outputs.tunnel2_cidr }}"
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
