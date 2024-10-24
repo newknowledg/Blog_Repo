@@ -78,12 +78,12 @@ jobs:
         echo $(terraform state pull | grep tunnel1_address | awk -F ':' '{print $2}' | tr -d '",')
         echo -n "tunnel_address2 is: "
         echo $(terraform state pull | grep tunnel2_address | awk -F ':' '{print $2}' | tr -d '",')
-        echo -n "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]' | sed 's/${{ secrets.DB_USER }}//g'))" >> $GITHUB_OUTPUT
-        echo -n "tunnel1_address=$(echo $(terraform state pull | grep tunnel1_address | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
-        echo -n "tunnel2_address=$(echo $(terraform state pull | grep tunnel2_address | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
-        echo -n "tunnel1_local_address=$(echo $(terraform state pull | grep tunnel1_vgw_inside_addres | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
-        echo -n "tunnel2_local_address=$(echo $(terraform state pull | grep tunnel2_vgw_inside_addres | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
-        echo -n "tunnel1_cidr=$(echo $(terraform state pull | grep tunnel1_inside_cidr | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
-        echo -n "tunnel2_cidr=$(echo $(terraform state pull | grep tunnel2_inside_cidr | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo "endpoint=$(echo $(terraform state pull | grep endpoint | awk -F ':' '{print $2}' | tr -d '",[]' | sed 's/${{ secrets.DB_USER }}//g'))" >> $GITHUB_OUTPUT
+        echo "tunnel1_address=$(echo $(terraform state pull | grep tunnel1_address | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo "tunnel2_address=$(echo $(terraform state pull | grep tunnel2_address | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo "tunnel1_local_address=$(echo $(terraform state pull | grep tunnel1_vgw_inside_addres | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo "tunnel2_local_address=$(echo $(terraform state pull | grep tunnel2_vgw_inside_addres | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo "tunnel1_cidr=$(echo $(terraform state pull | grep tunnel1_inside_cidr | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
+        echo "tunnel2_cidr=$(echo $(terraform state pull | grep tunnel2_inside_cidr | awk -F ':' '{print $2}' | tr -d '",'))" >> $GITHUB_OUTPUT
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
