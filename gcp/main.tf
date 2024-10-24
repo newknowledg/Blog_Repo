@@ -113,14 +113,6 @@ resource "google_compute_vpn_tunnel" "tunnel2" {
   vpn_gateway_interface           = 1
 }
 
-resource "google_compute_router_interface" "router1_interface1" {
-  name       = "router1-interface1"
-  router     = google_compute_router.vpn-router.name
-  region     = "us-central1"
-  ip_range   = "{__CIDR1__}"
-  vpn_tunnel = google_compute_vpn_tunnel.tunnel1.name
-}
-
 resource "google_compute_router_peer" "router1_peer1" {
   name                      = "router1-peer1"
   router                    = google_compute_router.vpn-router.name
@@ -129,14 +121,6 @@ resource "google_compute_router_peer" "router1_peer1" {
   peer_asn                  = {__AWS_ASN__}
   advertised_route_priority = 100
   interface                 = google_compute_router_interface.router1_interface1.name
-}
-
-resource "google_compute_router_interface" "router1_interface2" {
-  name       = "router1-interface2"
-  router     = google_compute_router.vpn-router.name
-  region     = "us-central1"
-  ip_range   = "{__CIDR2__}"
-  vpn_tunnel = google_compute_vpn_tunnel.tunnel2.name
 }
 
 resource "google_compute_router_peer" "router1_peer2" {
