@@ -141,7 +141,7 @@ resource "google_compute_interconnect" "interconnect" {
   customer_name        = "aws"
   interconnect_type    = "DEDICATED"
   link_type            = "LINK_TYPE_ETHERNET_10G_LR"
-  remote_location      = "{__AWS_IP1__}"
+  remote_location      = {__AWS_IP1__}
   requested_link_count = 1
 }
 
