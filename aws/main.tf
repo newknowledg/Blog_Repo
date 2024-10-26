@@ -28,36 +28,3 @@ resource "aws_db_instance" "wordpress" {
     username = "{__USER__}"
     password = "{__PASS__}"
     }
-
-resource "aws_vpn_gateway" "vpn_gw" {
-  vpc_id = "{__VPC_ID__}"
-  amazon_side_asn = "{__AWS_ASN__}"
-
-  tags = {
-    Name = "main"
-  }
-}
-
-resource "aws_customer_gateway" "main" {
-  bgp_asn    = {__GCP_ASN__}
-  ip_address = "{__GCP_IP__}"
-  type       = "ipsec.1"
-  
-  tags = {
-    Name = "gcp-info"
-  }
-}
-
-resource "aws_vpn_connection" "main" {
-  vpn_gateway_id      = aws_vpn_gateway.vpn_gw.id
-  customer_gateway_id = aws_customer_gateway.main.id
-  type                = "ipsec.1"
-  static_routes_only  = true
-  tunnel1_preshared_key = "{__SHARED_SECRET__}"
-  tunnel2_preshared_key = "{__SHARED_SECRET__}"
-}
-
-resource "aws_vpn_connection_route" "gcp" {
-  destination_cidr_block = "10.20.0.0/16"
-  vpn_connection_id      = aws_vpn_connection.main.id
-}
